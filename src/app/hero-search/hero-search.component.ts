@@ -22,7 +22,7 @@ export class HeroSearchComponent implements OnInit {
   ngOnInit(): void {
 
     this.heroes$ = this.searchTerms.pipe(
-      debounceTime(300),
+      debounceTime(1000),
 
       distinctUntilChanged(),
 

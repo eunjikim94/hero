@@ -5,36 +5,19 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HeroService {
-  private heroesUrl = 'api/heroes';
+export class HeroService  {
+  private heroesUrl = 'api/heroesd';
   httpOtions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
   constructor(private messageService:MessageService,
     private http:HttpClient ) { }
-
-
-  // getHeroes(): Hero[]{
-  //   return HEROES;
-  // }
-
-  // getHeroes():Observable<Hero[]>{
-  //   const heroes = of (HEROES);
-  //   this.messageService.add('HeroService: fetched heroes');
-  //   return heroes;
-  // }
-
-
-  // getHero(id: number):Observable<Hero>{
-  //   const hero = HEROES.find(h=> h.id === id)!;
-  //   this.messageService.add(`HeroService : fetched hero id=${id}`);
-  //   return of(hero);
-  
-  // }
 
   private log(message: string){
     this.messageService.add(`HeroService: ${message}`);
@@ -48,6 +31,10 @@ export class HeroService {
     );
   }
 
+
+  
+
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
@@ -56,6 +43,7 @@ export class HeroService {
     };
   }
 
+  //상세정보
   getHero(id: number): Observable<Hero>{
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get<Hero>(url).pipe(
